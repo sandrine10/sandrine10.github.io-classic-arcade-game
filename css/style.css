@@ -1,0 +1,54 @@
+body {
+    text-align: center;
+    background-color: black;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+}
+
+a {
+    color: gray;
+    text-decoration: none;
+}
+
+a:hover {
+    color: darkgray;
+    text-decoration: underline;
+}
+
+hr {
+    width: 75%;
+}
+
+.top-buffer {
+    padding-top: 50px;
+}
+
+/*
+#mute {
+    display: inline-block;
+    text-decoration: none;
+    background: #fc7b7b;
+    border-radius: 5px;
+    padding: 3px 7px;
+    color: #fff;
+    border: solid 2px white;
+}
+
+#mute:hover {
+    border: solid 2px #ccc;
+}
+*/
+
+/*.rules ul, li {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+*/
+
+h4 {
+    font-style: italic;
+}
+
+footer {
+ text-align: middle;
+}
