@@ -1,8 +1,5 @@
 # sandrine10.github.io-classic-arcade-game
 
-# frontend-nanodegree-arcade-game-master
-
-
 ![screenshot game](https://github.com/sandrine10/frontend-nanodegree-arcade-game-master/blob/master/images/screenshot.jpg)
 
 #Source
