@@ -161,7 +161,7 @@ var Hud = function(lives) {
     this.y = -10;
     this.MAX_LIVES = lives;
     this.lives = lives;
-    this.sprite = 'images/heart.png';
+    this.sprite = 'images/Heart.png';
     this.width = Resources.get(this.sprite).width * .4;
     this.height = Resources.get(this.sprite).height * .4;
 };
