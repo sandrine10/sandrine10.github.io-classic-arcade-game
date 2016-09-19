@@ -3,13 +3,13 @@ var menu;
 var gameState;
 var hud; // player hud- https://en.wikipedia.org/wiki/HUD_(video_gaming)
 var player;
-var allEnemies
-var enemyResetX
+var allEnemies;
+var enemyResetX;
 var playerReset; // player spawn position
 var level;
 var score = 0;
-var colWidth = 101,
-    rowheight = 83
+var colWidth = 101;
+var rowheight = 83;
 var gem = [GemBlue, GemOrange, Star, Key];
 var collectedBlue;
 var collectedOrange;
@@ -37,13 +37,16 @@ Menu.prototype.render = function() {
     ctx.font = "bold 20pt verdana";
 
     if (gameState === "menu") {
-        for (character in this.characters) {
-            ctx.drawImage(Resources.get(this.bg), this.width * character, this.y + 40);
-
+        for (var bkg in this.characters) {
+            if (this.characters[bkg] !== undefined){
+                ctx.drawImage(Resources.get(this.bg), this.width * bkg, this.y + 40);
+            }
         }
         ctx.drawImage(Resources.get(this.sprite), this.width * this.selected, this.y);
-        for (character in this.characters) {
-            ctx.drawImage(Resources.get(this.characters[character]), this.width * character, (this.selected == character ? this.y - 20 : this.y));
+        for (var character in this.characters) {
+            if (this.characters[character] !== undefined){
+                ctx.drawImage(Resources.get(this.characters[character]), this.width * character, (this.selected == character ? this.y - 20 : this.y));
+            }
         }
 
         ctx.fillText("SELECT AN AVATAR!", ctx.canvas.width / 2, ctx.canvas.height / 5);
@@ -162,8 +165,8 @@ var Hud = function(lives) {
     this.MAX_LIVES = lives;
     this.lives = lives;
     this.sprite = 'images/Heart.png';
-    this.width = Resources.get(this.sprite).width * .4;
-    this.height = Resources.get(this.sprite).height * .4;
+    this.width = Resources.get(this.sprite).width * 0.4;
+    this.height = Resources.get(this.sprite).height * 0.4;
 };
 
 Hud.prototype.render = function() {
@@ -180,7 +183,7 @@ var Enemy = function(x, y, speed) {
     this.y = y;
     this.x = x;
     this.speed = speed;
-    this.reset = false
+    this.reset = false;
     this.sprite = 'images/enemy-bug-purple.png';
 
     this.width = Resources.get(this.sprite).width;
@@ -205,7 +208,7 @@ Enemy.prototype.update = function(dt) {
         this.x = enemyResetX - getRandomInt(0, ctx.canvas.clientWidth);
         this.reset = false;
     }
-}
+};
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
@@ -295,12 +298,14 @@ var game = function(enemiesPerRow, speedSeed, lives, level) {
     // initialize allEnemy array
     allEnemies = [];
 
-    for (row in enemiesPerRow) { // iterate through object passed in
-        var ypos = -20 + 83 * row;
-        var speed = (speedSeed - speedSeed * row / enemiesPerRow.length) + (level - 1) * 50; //speed is clamped based on how high the row is
-        for (i = 0; i < enemiesPerRow[row]; i++) { // create enemies based on value in array
-            var startpos = 101 * (i + 1) - 404 + getRandomInt(0, ctx.canvas.clientWidth); // initial spawn point
-            allEnemies.push(new Enemy(startpos, ypos, speed));
+    for (var row in enemiesPerRow) { // iterate through object passed in
+         if (enemiesPerRow[row] !== undefined){
+            var ypos = -20 + 83 * row;
+            var speed = (speedSeed - speedSeed * row / enemiesPerRow.length) + (level - 1) * 50; //speed is clamped based on how high the row is
+            for (i = 0; i < enemiesPerRow[row]; i++) { // create enemies based on value in array
+                var startpos = 101 * (i + 1) - 404 + getRandomInt(0, ctx.canvas.clientWidth); // initial spawn point
+                allEnemies.push(new Enemy(startpos, ypos, speed));
+            }
         }
     }
 };
@@ -352,7 +357,7 @@ var checkCollisions = function() {
         }
     }
 
-    for (enemy in allEnemies) {
+    for (var enemy in allEnemies) {
         if (isColliding(player.bounds[0], player.bounds[1], allEnemies[enemy].bounds[0], allEnemies[enemy].bounds[1]) && isColliding(player.bounds[2], player.bounds[3], allEnemies[enemy].bounds[2], allEnemies[enemy].bounds[3])) {
             player.x = playerReset[0];
             player.y = playerReset[1];
@@ -362,7 +367,7 @@ var checkCollisions = function() {
             }
         }
     }
-}
+};
 
 // This function is used to calculate the bounds of a unit to check collisions.
 // Returns an array of calculated lower and upper bounds for both x and y axis.
